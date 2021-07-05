@@ -1,5 +1,6 @@
 package com.example.iagokaic.workshopmongo.resources;
 
+import com.example.iagokaic.workshopmongo.domain.Post;
 import com.example.iagokaic.workshopmongo.domain.User;
 import com.example.iagokaic.workshopmongo.dto.UserDTO;
 import com.example.iagokaic.workshopmongo.services.UserService;
@@ -52,5 +53,11 @@ public class UserResources {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
